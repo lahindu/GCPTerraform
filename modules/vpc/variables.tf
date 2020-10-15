@@ -1,5 +1,9 @@
-variable "vpc_cidr" {
-  description = "CIDR for the VPC"
-  default     = "172.30.0.0/16"
+variable "vpc_name" {
+  description = "VPC name"
+  default     = "dte-dev-1"
 }
 
+variable "vpc_description" {
+  description = "Description for VPC"
+  default     = "vpc-description"
+}
