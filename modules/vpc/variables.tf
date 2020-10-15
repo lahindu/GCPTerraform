@@ -4,6 +4,11 @@ variable "vpc_name" {
 }
 
 variable "vpc_description" {
-  description = "Description for VPC"
-  default     = "vpc-description"
+  description       = "Description for VPC"
+  default           = "vpc-description"
+}
+
+variable "vpc_routing_mode" {
+  description       = "VPC Routing mode "
+  default           = "REGIONAL"
 }

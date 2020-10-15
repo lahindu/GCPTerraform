@@ -6,6 +6,7 @@ pipeline {
     stages {
         stage('Terraform Init') {
             steps {
+                sh "whoami"
                 println "Setup Environment or Delete Environment : ${TERRA_COMMAND}"
                 sh "terraform init"
             }
