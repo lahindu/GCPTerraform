@@ -3,6 +3,9 @@ pipeline {
 	parameters {
 		choice(choices: ['SETUP', 'DELETE'], description: 'Setup Environment or Delete Environment', name: 'TERRA_COMMAND')
     }
+    environment{
+        GOOGLE_APPLICATION_CREDENTIALS="/root/ab7e9b87a215.json"
+    }
     stages {
         stage('Terraform Init') {
             steps {
