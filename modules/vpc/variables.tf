@@ -28,6 +28,17 @@ variable "region" {
   default           =  [ "us-east1", "us-east1" ]
 }
 
+variable "cloud_router" {
+  description       = "Cloud router name"
+  default           =  "cloud_router_1"
+}
 
+variable "cloud_router_region" {
+  description       = "Cloud router region name"
+  default           =  "us-east1"
+}
 
-
+variable "nat_name" {
+  description       = "Cloud nat name"
+  default           =  "nat_name-1"
+}
