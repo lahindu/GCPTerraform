@@ -7,7 +7,7 @@ module "gke" {
     name                        = var.gke_cluster_name
     region                      = var.region
     network                     = var.vpc_name 
-    subnetwork                  = var.subnet_name
+    subnetwork                  = var.subnetwork
     ip_range_pods               = var.ip_range_pods
     ip_range_services           = var.ip_range_services
 

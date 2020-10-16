@@ -18,6 +18,11 @@ variable "vpc_name" {
     default     = ""
 }
 
+variable "subnetwork" {
+    description = ""
+    default     = ""
+}
+
 variable "ip_range_pods" {
     description = "ip_range_pods"
     default     = ""
