@@ -13,6 +13,7 @@ module "vpc" {
     region                      = var.region
     cloud_router                = "vpc-gke-1-cldrt"
     cloud_router_region         = var.region
+    cloud_route                 = "${var.vpc_name}-cloud-route"
     #nat_name                    = "vpc-gke-1-cldnat"
 }
 

@@ -33,6 +33,11 @@ variable "cloud_router" {
   default           =  "cloud_router_1"
 }
 
+variable "cloud_route" {
+  description       = "Cloud router name"
+  default           =  ""
+}
+
 variable "cloud_router_region" {
   description       = "Cloud router region name"
   default           =  "us-east1"

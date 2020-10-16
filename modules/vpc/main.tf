@@ -15,15 +15,22 @@ resource "google_compute_subnetwork" "subnet" {
     network                 = google_compute_network.vpc.id
 }
 
-resource "google_compute_router" "cloud_router" {
-    name                = var.cloud_router
-    region              = var.cloud_router_region
-    network             = google_compute_network.vpc.name
+resource "google_compute_route" "cloud_route" {
+    name                = var.cloud_route
     dest_range          = "0.0.0.0/0"
+    network             = google_compute_network.vpc.name
+    next_hop_instance   = "default-internet-gateway"
+    priority            = 100
+}
+
+#resource "google_compute_router" "cloud_router" {
+#    name                = var.cloud_router
+#    region              = var.cloud_router_region
+#    network             = google_compute_network.vpc.name
+#    dest_range          = "0.0.0.0/0"
 #    priority            = 100
     #next_hop_gateway    = "projects/project/global/gateways/default-internet-gateway"
-
-}
+#}
 
 #resource "google_compute_router_nat" "nat" {
 #    name                               = var.nat_name
