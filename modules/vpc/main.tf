@@ -21,7 +21,7 @@ resource "google_compute_router" "cloud_router" {
     network             = google_compute_network.vpc.name
     dest_range          = "0.0.0.0/0"
     priority            = 100
-    next_hop_gateway    = "default-internet-gateway"
+    next_hop_gateway    = "projects/project/global/gateways/default-internet-gateway"
 
 }
 
