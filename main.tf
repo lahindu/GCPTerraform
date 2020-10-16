@@ -17,7 +17,7 @@ module "vpc" {
 }
 
 module "gke" {
-    source                      = "./modules/vpc"
+    source                      = "./modules/gke"
     project_id                  = "et-dte-platform-core"
     gke_cluster_name            = "dte-eks"
     region                      = var.region
