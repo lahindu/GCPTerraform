@@ -2,7 +2,7 @@
 resource "google_compute_network" "vpc" {
     name                            = var.vpc_name
     description                     = var.vpc_description
-    delete_default_routes_on_create = true
+    delete_default_routes_on_create = false
     auto_create_subnetworks         = false
     routing_mode                    = var.vpc_routing_mode
 }
@@ -15,15 +15,15 @@ resource "google_compute_subnetwork" "subnet" {
     network                 = google_compute_network.vpc.id
 }
 
-resource "google_compute_router" "cloud_router" {
-    name                = var.cloud_router
-    region              = var.cloud_router_region
-    network             = google_compute_network.vpc.name
-    dest_range          = "0.0.0.0/0"
-    priority            = 100
+#resource "google_compute_router" "cloud_router" {
+#    name                = var.cloud_router
+#    region              = var.cloud_router_region
+#    network             = google_compute_network.vpc.name
+#    dest_range          = "0.0.0.0/0"
+#    priority            = 100
     #next_hop_gateway    = "projects/project/global/gateways/default-internet-gateway"
 
-}
+#}
 
 #resource "google_compute_router_nat" "nat" {
 #    name                               = var.nat_name
