@@ -6,12 +6,35 @@ provider "google" {
 
 module "vpc" {
     source                      = "./modules/vpc"
-    vpc_name                    = "vpc-eks-dev-1"
+    vpc_name                    = var.vpc_name
     vpc_description             = "EKS Development Environment"
     subnet_cidr_blocks          = [ "10.1.1.0/24", "10.1.2.0/24", "10.1.3.0/24", "10.1.4.0/24" ]
     subnet_name                 = [ "vpc-gke-1-web", "vpc-gke-1-dtesvc", "vpc-gke-1-db", "vpc-gke-1-toolstack" ]
-    region                      = [ "us-east1", "us-east1", "us-east1", "us-east4" ]
+    region                      = var.region
     cloud_router                = "vpc-gke-1-cldrt"
-    cloud_router_region         = "us-east1"
+    cloud_router_region         = var.region
     nat_name                    = "vpc-gke-1-cldnat"
+}
+
+module "gke" {
+    source                      = "./modules/vpc"
+    project_id                  = "et-dte-platform-core"
+    gke_cluster_name            = "dte-eks"
+    region                      = var.region
+    vpc_name                    = var.vpc_name
+    ip_range_pods               = "10.244.0.0/16"
+    ip_range_services           = "10.4.0.0/19"
+    kubernetes_version          = "1.17.9-gke.1504"
+    regional                    = true
+    node_pool_name              = "dte-eks-node-pool"
+    machine_type                = "n1-standard-1"
+    initial_node_count          = 2
+    min_count                   = 2
+    max_count                   = 4
+    local_ssd_count             = 0
+    disk_size_gb                = 50
+    disk_type                   = "pd-standard"
+    image_type                  = "COS"
+    preemptible                 = true
+
 }

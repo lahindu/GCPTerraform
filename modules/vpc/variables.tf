@@ -25,7 +25,7 @@ variable "subnet_name" {
 
 variable "region" {
   description       = "Region name"
-  default           =  [ "us-east1", "us-east1" ]
+  default           =  "us-east1"
 }
 
 variable "cloud_router" {

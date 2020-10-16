@@ -1,5 +1,10 @@
 variable "region" {
-    description = "aws regios"
-    default = "ap-southeast-1"
+    description = ""
+    default     = "us-east1"
+}
+
+variable "vpc_name" {
+    description = ""
+    default     = "vpc-eks-dev-1"
 }
 
