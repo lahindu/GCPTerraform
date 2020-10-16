@@ -9,7 +9,7 @@ module "vpc" {
     vpc_name                    = var.vpc_name
     vpc_description             = "EKS Development Environment"
     subnet_cidr_blocks          = [ "10.1.1.0/24", "10.1.2.0/24", "10.1.3.0/24", "10.1.4.0/24" ]
-    subnet_name                 = [ "vpc-gke-1-web", "vpc-gke-1-dtesvc", "vpc-gke-1-db", "vpc-gke-1-toolstack" ]
+    subnet_name                 = var.subnet_name
     region                      = var.region
     cloud_router                = "vpc-gke-1-cldrt"
     cloud_router_region         = var.region
@@ -23,7 +23,7 @@ module "gke" {
     gke_cluster_name            = "dte-eks"
     region                      = var.region
     vpc_name                    = var.vpc_name
-    subnetwork                  = "${var.vpc_name}-${var.region}-subnetwork"
+    subnetwork                  = var.subnet_name
     ip_range_pods               = "${var.vpc_name}-${var.region}-pods"
     ip_range_services           = "${var.vpc_name}-${var.region}-services"
     kubernetes_version          = "1.17.9-gke.1504"
