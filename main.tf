@@ -22,9 +22,9 @@ module "gke" {
     gke_cluster_name            = "dte-eks"
     region                      = var.region
     vpc_name                    = var.vpc_name
-    subnetwork                  = "10.244.0.0/16"
-    ip_range_pods               = "10.244.32.0/19"
-    ip_range_services           = "10.244.0.0/19"
+    subnetwork                  = "${var.vpc_name}-${var.region}-subnetwork"
+    ip_range_pods               = "${var.vpc_name}-${var.region}-pods"
+    ip_range_services           = "${var.vpc_name}-${var.region}-services"
     kubernetes_version          = "1.17.9-gke.1504"
     regional                    = true
     node_pool_name              = "dte-eks-node-pool"
