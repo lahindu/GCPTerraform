@@ -1,11 +1,11 @@
 variable "region" {
-    description = ""
-    default     = "us-east1"
+  description = ""
+  default     = "us-east1"
 }
 
 variable "vpc_name" {
-    description = ""
-    default     = "vpc-eks-dev-1"
+  description = ""
+  default     = "vpc-eks-dev-1"
 }
 
 variable "subnet_name" {
