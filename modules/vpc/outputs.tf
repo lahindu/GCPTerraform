@@ -7,7 +7,7 @@ output "gateway_ipv4" {
 }
 
 output "subnet_ids" {
-  value = "${google_compute_subnetwork.subnet.*.id}"
+  value = google_compute_subnetwork.subnet.*.id
 }
 
 #output "cloud_router_id"{
