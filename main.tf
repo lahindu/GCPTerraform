@@ -19,6 +19,13 @@ module "vpc" {
 
 module "gke" {
     source                      = "./modules/gke"
+    project_id                  = "et-dte-platform-core"
+    gke_cluster_name            = "dte-eks"
+    region                      = var.region
+    vpc_name                    = var.vpc_name
+    kubernetes_version          = "1.17.9-gke.1504"
+    node_pool_name              = "dte-eks-node-pool"
+    machine_type                = "n1-standard-1"
 }
 
 #module "gke" {
