@@ -16,6 +16,7 @@ module "vpc" {
     cloud_route                 = "${var.vpc_name}-cloud-route"
     ip_range_pods_cidr          = "10.0.0.0/14"
     ip_range_services_cidr      = "10.4.0.0/19"
+    vpc_routing_mode            = "REGIONAL"
     #nat_name                    = "vpc-gke-1-cldnat"
 }
 
