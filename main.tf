@@ -8,12 +8,14 @@ module "vpc" {
     source                      = "./modules/vpc"
     vpc_name                    = var.vpc_name
     vpc_description             = "EKS Development Environment"
-    subnet_cidr_blocks          = [ "10.1.1.0/24", "10.1.2.0/24", "10.1.3.0/24", "10.1.4.0/24" ]
+    subnet_cidr_blocks          = "10.1.1.0/24"
     subnet_name                 = var.subnet_name
     region                      = var.region
     cloud_router                = "vpc-gke-1-cldrt"
     cloud_router_region         = var.region
     cloud_route                 = "${var.vpc_name}-cloud-route"
+    ip_range_pods_cidr          = "10.1.2.0/24"
+    ip_range_services_cidr      = "10.1.3.0/24"
     #nat_name                    = "vpc-gke-1-cldnat"
 }
 

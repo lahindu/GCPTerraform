@@ -8,11 +8,19 @@ resource "google_compute_network" "vpc" {
 }
 
 resource "google_compute_subnetwork" "subnet" {
-    count                   = length(var.subnet_name)
-    name                    = var.subnet_name[count.index]
-    ip_cidr_range           = var.subnet_cidr_blocks[count.index]
+    #count                   = length(var.subnet_name)
+    name                    = var.subnet_name
+    ip_cidr_range           = var.subnet_cidr_blocks
     region                  = var.region
     network                 = google_compute_network.vpc.id
+    secondary_ip_range {
+        range_name    = "${var.vpc_name}-${var.region}-pods"
+        ip_cidr_range = var.ip_range_pods_cidr
+    }
+    secondary_ip_range {
+        range_name    = "${var.vpc_name}-${var.region}-services"
+        ip_cidr_range = var.ip_range_services_cidr
+    }
 }
 
 resource "google_compute_route" "cloud_route" {

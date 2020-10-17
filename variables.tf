@@ -10,6 +10,6 @@ variable "vpc_name" {
 
 variable "subnet_name" {
   description   = ""
-  default       = [ "vpc-gke-1-web", "vpc-gke-1-dtesvc", "vpc-gke-1-db", "vpc-gke-1-toolstack" ]
+  default       = "vpc-gke-1-web"
 }                 
 

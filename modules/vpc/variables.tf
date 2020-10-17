@@ -47,3 +47,13 @@ variable "nat_name" {
   description       = "Cloud nat name"
   default           =  "nat_name-1"
 }
+
+variable "ip_range_pods_cidr" {
+  description       = "Secondary IP range for pods"
+  default           =  "nat_name-1"
+}
+
+variable "ip_range_services_cidr" {
+  description       = "Secondary IP range for services"
+  default           =  ""
+}
