@@ -19,24 +19,27 @@ module "vpc" {
 
 module "gke" {
     source                      = "./modules/gke"
-    project_id                  = "et-dte-platform-core"
-    gke_cluster_name            = "dte-eks"
-    region                      = var.region
-    vpc_name                    = var.vpc_name
-    subnetwork                  = "vpc-gke-1-web"
-    ip_range_pods               = "${var.vpc_name}-${var.region}-pods"
-    ip_range_services           = "${var.vpc_name}-${var.region}-services"
-    kubernetes_version          = "1.17.9-gke.1504"
-    regional                    = true
-    node_pool_name              = "dte-eks-node-pool"
-    machine_type                = "n1-standard-1"
-    initial_node_count          = 2
-    min_count                   = 2
-    max_count                   = 4
-    local_ssd_count             = 0
-    disk_size_gb                = 50
-    disk_type                   = "pd-standard"
-    image_type                  = "COS"
-    preemptible                 = true
-
 }
+
+#module "gke" {
+#    source                      = "./modules/gke"
+#    project_id                  = "et-dte-platform-core"
+#    gke_cluster_name            = "dte-eks"
+#    region                      = var.region
+#    vpc_name                    = var.vpc_name
+#    subnetwork                  = "vpc-gke-1-web"
+#    ip_range_pods               = "${var.vpc_name}-${var.region}-pods"
+#    ip_range_services           = "${var.vpc_name}-${var.region}-services"
+#    kubernetes_version          = "1.17.9-gke.1504"
+#    regional                    = true
+#    node_pool_name              = "dte-eks-node-pool"
+#    machine_type                = "n1-standard-1"
+#    initial_node_count          = 2
+#    min_count                   = 2
+#    max_count                   = 4
+#    local_ssd_count             = 0
+#    disk_size_gb                = 50
+#    disk_type                   = "pd-standard"
+#    image_type                  = "COS"
+#    preemptible                 = true
+#}
