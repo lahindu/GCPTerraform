@@ -3,11 +3,11 @@
 
 resource "google_container_cluster" "primary" {
   name               = "marcellus-wallace"
-  location           = "us-central1-a"
+  location           = "us-east1"
   initial_node_count = 3
 
   node_locations = [
-    "us-central1-c",
+    "us-east1",
   ]
 
   master_auth {
@@ -38,7 +38,7 @@ resource "google_container_cluster" "primary" {
 
 resource "google_container_node_pool" "np" {
   name       = "my-node-pool"
-  location   = "us-central1-a"
+  location   = "us-east1"
   cluster    = google_container_cluster.primary.name
   node_count = 3
 
