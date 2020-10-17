@@ -2,18 +2,19 @@
 resource "google_compute_network" "vpc" {
     name                            = var.vpc_name
     description                     = var.vpc_description
-    delete_default_routes_on_create = true
+    delete_default_routes_on_create = false
     auto_create_subnetworks         = false
     routing_mode                    = var.vpc_routing_mode
 }
 
-resource "google_compute_route" "cloud_route" {
-    name                = var.cloud_route
-    dest_range          = "0.0.0.0/0"
-    network             = google_compute_network.vpc.name
-    next_hop_gateway    = google_compute_network.vpc.gateway_ipv4
-    priority            = 100
-}
+#resource "google_compute_route" "cloud_route" {
+#    name                = var.cloud_route
+#    dest_range          = "0.0.0.0/0"
+#    network             = google_compute_network.vpc.name
+#    next_hop_gateway   = "default-internet-gateway"
+    #next_hop_gateway    = google_compute_network.vpc.gateway_ipv4
+#    priority            = 100
+#}
 
 resource "google_compute_subnetwork" "subnet" {
     #count                   = length(var.subnet_name)
