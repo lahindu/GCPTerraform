@@ -3,5 +3,5 @@ output "id" {
 }
 
 output "bucket_self_link" {
-  value = google_container_registry.suregistrybnet.bucket_self_link
+  value = google_container_registry.registry.bucket_self_link
 }
