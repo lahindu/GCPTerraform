@@ -1,10 +1,37 @@
-resource "google_container_registry" "registry" {
-    project  = var.project_id
-    location = var.cr_location
+resource "google_compute_network" "private_vpc" {
+    name                            = "mysql-vpc"
+    description                     = "VPC for Mysql instance"
 }
 
-resource "google_storage_bucket_iam_member" "viewer" {
-    bucket = google_container_registry.registry.id
-    role = "roles/storage.objectViewer"
-    member = "user:${var.cr_member}"
+resource "google_compute_global_address" "private_ip_address" {
+    name          = "private-ip-address"
+    purpose       = "VPC_PEERING"
+    address_type  = "INTERNAL"
+    prefix_length = 16
+    network       = google_compute_network.private_vpc.id
+}
+
+resource "google_service_networking_connection" "private_vpc_connection" {
+    network                 = google_compute_network.private_vpc.id
+    service                 = "servicenetworking.googleapis.com"
+    reserved_peering_ranges = [google_compute_global_address.private_ip_address.name]
+}
+
+resource "random_id" "db_name_suffix" {
+    byte_length = 4
+}
+
+resource "google_sql_database_instance" "instance" {
+    name   = "private-instance-${random_id.db_name_suffix.hex}"
+    region = "us-east1"
+
+    depends_on = [google_service_networking_connection.private_vpc_connection]
+
+    settings {
+        tier = "db-f1-micro"
+        ip_configuration {
+            ipv4_enabled    = false
+            private_network = google_compute_network.private_network.id
+        }
+    }
 }
