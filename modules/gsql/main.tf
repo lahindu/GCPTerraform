@@ -1,37 +1,43 @@
-resource "google_compute_network" "private_vpc" {
-    name                            = "mysql-vpc"
-    description                     = "VPC for Mysql instance"
-}
-
-resource "google_compute_global_address" "private_ip_address" {
-    name          = "private-ip-address"
-    purpose       = "VPC_PEERING"
-    address_type  = "INTERNAL"
-    prefix_length = 16
-    network       = google_compute_network.private_vpc.id
-}
-
-resource "google_service_networking_connection" "private_vpc_connection" {
-    network                 = google_compute_network.private_vpc.id
-    service                 = "servicenetworking.googleapis.com"
-    reserved_peering_ranges = [google_compute_global_address.private_ip_address.name]
-}
-
-resource "random_id" "db_name_suffix" {
-    byte_length = 4
-}
-
-resource "google_sql_database_instance" "instance" {
-    name   = "private-instance-${random_id.db_name_suffix.hex}"
-    region = "us-east1"
-
-    depends_on = [google_service_networking_connection.private_vpc_connection]
+resource "google_sql_database_instance" "master" {
+  name             = "terraform-master"
+  region           = "us-east1"
+  database_version = "MYSQL_5_7"
+  project          = "et-dte-platform-core"
+  root_password    = "Root@1234"
 
     settings {
-        tier = "db-f1-micro"
+        tier                = "db-n1-standard-1"
+        availability_type   = "ZONAL"
+        disk_autoresize     = true
+        disk_size           = 20
+        disk_type           = "PD_SSD"
+        replication_type    = "SYNCHRONOUS"
+
+        backup_configuration {
+            enabled               = true
+            start_time            = "17:00"
+            binary_log_enabled    = true
+        }
+
+        maintenance_window{
+            day                 = 7
+            hour                = 22
+            update_track        = "stable"
+        }
+
         ip_configuration {
             ipv4_enabled    = false
-            private_network = google_compute_network.private_vpc.id
+            private_network = "vpc-eks-dev-1"
+        }
+
+        database_flags {
+            name  = "slow_query_log"
+            value = "on"
+        }
+
+        database_flags {
+            name  = "character_set_server"
+            value = "utf8mb4"
         }
     }
 }
