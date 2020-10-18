@@ -52,3 +52,8 @@ variable "sql_disk_size" {
     description = "SQL disk size" 
     default     = "" 
 }
+
+variable "sql_disk_type" { 
+    description = "SQL disk type" 
+    default     = "" 
+}
