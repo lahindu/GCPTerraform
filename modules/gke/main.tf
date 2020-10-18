@@ -37,6 +37,20 @@ module "gke" {
         auto_upgrade            = true
         preemptible             = var.preemptible
     },
+    {
+        name                    = "node_pool_name"
+        machine_type            = var.machine_type
+        initial_node_count      = var.initial_node_count
+        min_count               = var.min_count
+        max_count               = var.max_count
+        local_ssd_count         = var.local_ssd_count
+        disk_size_gb            = var.disk_size_gb
+        disk_type               = var.disk_type
+        image_type              = var.image_type
+        auto_repair             = true
+        auto_upgrade            = true
+        preemptible             = var.preemptible
+    },
     ]
 
     node_pools_oauth_scopes = {
