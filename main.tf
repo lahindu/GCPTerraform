@@ -20,6 +20,6 @@ module "vpc" {
     #nat_name                    = "vpc-gke-1-cldnat"
 }
 
-module "psql" {
-    source                      = "./modules/psql"
+module "gsql" {
+    source                      = "./modules/gsql"
 }
