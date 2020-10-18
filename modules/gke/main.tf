@@ -1,92 +1,79 @@
 
+module "gke" {
+    source                      = "terraform-google-modules/kubernetes-engine/google"
 
-resource "google_container_cluster" "primary" {
-    name               = var.gke_cluster_name
-    location           = var.region
-    node_version       = var.kubernetes_version
-    min_master_version = var.kubernetes_version
-    project            = var.project_id
-    network            = var.vpc_name
+    # required variables
+    project_id                  = var.project_id
+    name                        = var.gke_cluster_name
+    region                      = var.region
+    network                     = var.vpc_name 
+    subnetwork                  = var.subnetwork
+    ip_range_pods               = var.ip_range_pods
+    ip_range_services           = var.ip_range_services
 
-    node_locations = [
-        "${var.region}-a",
-        "${var.region}-b",
-        "${var.region}-c",
+    # optional variables
+    kubernetes_version          = var.kubernetes_version
+    regional                    = var.regional
+    create_service_account      = false  
+    remove_default_node_pool    = true
+
+    # addons
+    http_load_balancing         = false
+    horizontal_pod_autoscaling  = true
+    network_policy              = true
+
+    node_pools = [
+    {
+        name                    = var.node_pool_name
+        machine_type            = var.machine_type
+        initial_node_count      = var.initial_node_count
+        min_count               = var.min_count
+        max_count               = var.max_count
+        local_ssd_count         = var.local_ssd_count
+        disk_size_gb            = var.disk_size_gb
+        disk_type               = var.disk_type
+        image_type              = var.image_type
+        auto_repair             = true
+        auto_upgrade            = true
+        preemptible             = var.preemptible
+    },
     ]
 
-    ip_allocation_policy {
-        use_ip_aliases = true
-    }
+    node_pools_oauth_scopes = {
+        all = []
 
-    remove_default_node_pool = true
-    initial_node_count = 1
-
-    master_auth {
-        username = ""
-        password = ""
-
-        client_certificate_config {
-            issue_client_certificate = false
-         }
-    }
-
-    node_config {
-        oauth_scopes = [
-            "https://www.googleapis.com/auth/logging.write",
-            "https://www.googleapis.com/auth/monitoring",
-        ]
-
-        metadata = {
-            disable-legacy-endpoints = "true"
-        }
-
-        guest_accelerator {
-            type  = "nvidia-tesla-k80"
-            count = 1
-        }
-    }
-}
-
-
-resource "google_container_node_pool" "primary" {
-    name               = var.node_pool_name
-    location           = var.region
-    cluster            = google_container_cluster.primary.name
-    project            = var.project_id
-    initial_node_count = 1
-
-    management {
-        auto_repair  = true
-        auto_upgrade = false
-    }
-
-    autoscaling {
-        min_node_count = 1
-        max_node_count = 2
-    }
-
-    node_config {
-        preemptible  = false
-        machine_type = var.machine_type
-
-        metadata {
-            disable-legacy-endpoints = "true"
-        }
-
-        oauth_scopes = [
-            "https://www.googleapis.com/auth/bigquery",
-            "https://www.googleapis.com/auth/cloud-platform",
-            "https://www.googleapis.com/auth/cloud.useraccounts.readonly",
-            "https://www.googleapis.com/auth/compute",
+        default-node-pool = [
             "https://www.googleapis.com/auth/devstorage.read_only",
             "https://www.googleapis.com/auth/logging.write",
-            "https://www.googleapis.com/auth/monitoring.write",
             "https://www.googleapis.com/auth/monitoring",
-            "https://www.googleapis.com/auth/pubsub",
+            "https://www.googleapis.com/auth/ndev.clouddns.readwrite",
             "https://www.googleapis.com/auth/service.management.readonly",
             "https://www.googleapis.com/auth/servicecontrol",
-            "https://www.googleapis.com/auth/sqlservice.admin",
             "https://www.googleapis.com/auth/trace.append",
+        ]
+    }
+
+    node_pools_labels = {
+        all = {}
+
+        default-node-pool = {
+            default-node-pool = true
+        }
+    }
+
+    node_pools_metadata = {
+        all = {}
+
+        default-node-pool = {
+            node-pool-metadata-custom-value = var.gke_cluster_name
+        }
+    }
+
+    node_pools_tags = {
+        all = []
+
+            default-node-pool = [
+            "default-node-pool",
         ]
     }
 }

@@ -20,19 +20,8 @@ module "vpc" {
     #nat_name                    = "vpc-gke-1-cldnat"
 }
 
-#module "gke" {
-#    source                      = "./modules/gke"
-#    project_id                  = "et-dte-platform-core"
-#    gke_cluster_name            = "dte-eks"
-#    region                      = var.region
-#    vpc_name                    = var.vpc_name
-#    kubernetes_version          = "1.17.9-gke.1504"
-#    node_pool_name              = "dte-eks-node-pool"
-#    machine_type                = "n1-standard-1"
-#}
-
 module "gke" {
-    source                      = "./modules/gke_copy"
+    source                      = "./modules/gke"
     project_id                  = "et-dte-platform-core"
     gke_cluster_name            = "dte-eks"
     region                      = var.region
@@ -52,4 +41,11 @@ module "gke" {
     disk_type                   = "pd-standard"
     image_type                  = "COS"
     preemptible                 = true
+}
+
+module "gcr" {
+    source                      = "./modules/gcr"
+    project_id                  = "et-dte-platform-core"
+    cr_location                 = "us"
+    cr_member                   = "lahindu.weerarathna@axiatadigitallabs.com"
 }
