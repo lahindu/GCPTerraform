@@ -20,6 +20,37 @@ module "vpc" {
     #nat_name                    = "vpc-gke-1-cldnat"
 }
 
+module "gke" {
+    source                      = "./modules/gke"
+    project_id                  = "et-dte-platform-core"
+    gke_cluster_name            = "dte-eks"
+    region                      = var.region
+    vpc_name                    = var.vpc_name
+    subnetwork                  = "vpc-gke-1-web"
+    ip_range_pods               = "${var.vpc_name}-${var.region}-pods"
+    ip_range_services           = "${var.vpc_name}-${var.region}-services"
+    kubernetes_version          = "1.17.9-gke.1504"
+    regional                    = true
+    node_pool1_name              = "dte-eks-dtesvc-pool"
+    node_pool2_name              = "dte-eks-dtetools-pool"
+    machine_type                = "n1-standard-1"
+    initial_node_count          = 1
+    min_count                   = 1
+    max_count                   = 2
+    local_ssd_count             = 0
+    disk_size_gb                = 50
+    disk_type                   = "pd-standard"
+    image_type                  = "COS"
+    preemptible                 = true
+}
+
+module "gcr" {
+    source                      = "./modules/gcr"
+    project_id                  = "et-dte-platform-core"
+    cr_location                 = "us"
+    cr_member                   = "lahindu.weerarathna@axiatadigitallabs.com"
+}
+
 module "gsql" {
     source                      = "./modules/gsql"
     vpc_id                      = module.vpc.id
