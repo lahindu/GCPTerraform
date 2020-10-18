@@ -38,7 +38,7 @@ module "gke" {
         preemptible             = var.preemptible
     },
     {
-        name                    = "node_pool_name"
+        name                    = "node-pool-name"
         machine_type            = var.machine_type
         initial_node_count      = var.initial_node_count
         min_count               = var.min_count
