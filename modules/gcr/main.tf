@@ -8,3 +8,6 @@ resource "google_storage_bucket_iam_member" "viewer" {
     role = "roles/storage.objectViewer"
     member = "user:${var.cr_member}"
 }
+
+data "google_container_registry_repository" "gcrr" {
+}
