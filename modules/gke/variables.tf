@@ -43,7 +43,12 @@ variable "regional" {
     default     = ""
 }
 
-variable "node_pool_name" {
+variable "node_pool1_name" {
+    description = "node_pool_name"
+    default     = ""
+}
+
+variable "node_pool2_name" {
     description = "node_pool_name"
     default     = ""
 }

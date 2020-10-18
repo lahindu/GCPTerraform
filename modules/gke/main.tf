@@ -24,7 +24,7 @@ module "gke" {
 
     node_pools = [
     {
-        name                    = var.node_pool_name
+        name                    = var.node_pool1_name
         machine_type            = var.machine_type
         initial_node_count      = var.initial_node_count
         min_count               = var.min_count

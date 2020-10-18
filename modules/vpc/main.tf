@@ -9,7 +9,7 @@ resource "google_compute_network" "vpc" {
 
 resource "google_compute_route" "cloud_route" {
     name                = var.cloud_route
-    description         = "var.cloud_route GKS default route"
+    description         = "${var.cloud_route} GKS default route"
     dest_range          = "0.0.0.0/0"
     network             = google_compute_network.vpc.name
     next_hop_gateway   = "default-internet-gateway"

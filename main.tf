@@ -7,7 +7,7 @@ provider "google" {
 module "vpc" {
     source                      = "./modules/vpc"
     vpc_name                    = var.vpc_name
-    vpc_description             = "EKS Development Environment"
+    vpc_description             = "GKE Development Environment"
     subnet_cidr_blocks          = "10.5.0.0/20"
     subnet_name                 = var.subnet_name
     region                      = var.region
@@ -23,17 +23,17 @@ module "vpc" {
 module "gke" {
     source                      = "./modules/gke"
     project_id                  = "et-dte-platform-core"
-    gke_cluster_name            = "dte-eks"
+    gke_cluster_name            = "dte-gks"
     region                      = var.region
     vpc_name                    = var.vpc_name
     subnetwork                  = "vpc-gke-1-web"
     ip_range_pods               = "${var.vpc_name}-${var.region}-pods"
     ip_range_services           = "${var.vpc_name}-${var.region}-services"
-    kubernetes_version          = "1.17.9-gke.1504"
+    kubernetes_version          = "1.16.13-gke.401"
     regional                    = true
-    node_pool1_name              = "dte-eks-dtesvc-pool"
-    node_pool2_name              = "dte-eks-dtetools-pool"
-    machine_type                = "n1-standard-1"
+    node_pool1_name              = "dte-gke-dtesvc-pool"
+    node_pool2_name              = "dte-gke-dtetools-pool"
+    machine_type                = "n2-standard-2"
     initial_node_count          = 1
     min_count                   = 1
     max_count                   = 2
