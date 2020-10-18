@@ -11,7 +11,7 @@ resource "google_sql_database_instance" "master" {
         disk_autoresize     = true
         disk_size           = 20
         disk_type           = "PD_SSD"
-        replication_type    = "SYNCHRONOUS"
+        #replication_type    = "SYNCHRONOUS"
 
         backup_configuration {
             enabled               = true
@@ -27,7 +27,7 @@ resource "google_sql_database_instance" "master" {
 
         ip_configuration {
             ipv4_enabled    = false
-            private_network = "vpc-eks-dev-1"
+            private_network = var.vpc_id
         }
 
         database_flags {

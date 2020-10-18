@@ -22,4 +22,5 @@ module "vpc" {
 
 module "gsql" {
     source                      = "./modules/gsql"
+    vpc_id                      = module.vpc.id
 }

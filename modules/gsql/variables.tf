@@ -12,3 +12,8 @@ variable "cr_member" {
     description = "Google container registry read permission user"
     default     = ""
 }
+
+variable "vpc_id" {
+  description = "VPC ID"
+  default     = ""
+}
