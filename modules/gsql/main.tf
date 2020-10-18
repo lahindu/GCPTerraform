@@ -1,16 +1,16 @@
-resource "google_sql_database_instance" "master" {
-  name             = "terraform-master"
-  region           = "us-east1"
-  database_version = "MYSQL_5_7"
-  project          = "et-dte-platform-core"
-  root_password    = "Root@1234"
+resource "google_sql_database_instance" "mysql" {
+  name             = var.sqldb_name
+  region           = var.region
+  database_version = var.database_version 
+  project          = var.project_id 
+  root_password    = var.root_password 
 
     settings {
-        tier                = "db-n1-standard-1"
-        availability_type   = "ZONAL"
+        tier                = var.sql_tier
+        availability_type   = var.sql_availability_type
         disk_autoresize     = true
-        disk_size           = 20
-        disk_type           = "PD_SSD"
+        disk_size           = var.sql_disk_size
+        disk_type           = var.sql_disk_type
         #replication_type    = "SYNCHRONOUS"
 
         backup_configuration {

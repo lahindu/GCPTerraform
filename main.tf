@@ -23,4 +23,13 @@ module "vpc" {
 module "gsql" {
     source                      = "./modules/gsql"
     vpc_id                      = module.vpc.id
+    sqldb_name                  = "dte-sql"
+    region                      = var.region
+    database_version            = "MYSQL_5_7"
+    project_id                  = "et-dte-platform-core"
+    root_password               = "Root@1234"
+    sql_tier                    = "db-n1-standard-1"
+    sql_availability_type       = "ZONAL"
+    sql_disk_size               = 50
+    sql_disk_type               = "PD_SSD"
 }
