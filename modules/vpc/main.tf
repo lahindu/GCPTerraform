@@ -11,7 +11,7 @@ resource "google_compute_route" "cloud_route" {
     name                = var.cloud_route
     description         = "${var.cloud_route} GKS default route"
     dest_range          = "0.0.0.0/0"
-    network             = google_compute_network.vpc.name
+    network             = google_compute_network.vpc.id
     next_hop_gateway   = "default-internet-gateway"
     #next_hop_gateway    = google_compute_network.vpc.gateway_ipv4
     priority            = 100

@@ -54,7 +54,7 @@ module "gcr" {
 module "gsql" {
     source                      = "./modules/gsql"
     vpc_id                      = module.vpc.id
-    sqldb_name                  = "dte-sql"
+    sqldb_name                  = "dte-mysql"
     region                      = var.region
     database_version            = "MYSQL_5_7"
     project_id                  = "et-dte-platform-core"
