@@ -1,9 +1,26 @@
+
+resource "google_compute_global_address" "private_ip_address" {
+    name          = "private-ip-address"
+    purpose       = "VPC_PEERING"
+    address_type  = "INTERNAL"
+    prefix_length = 16
+    network       = var.vpc_id
+}
+
+resource "google_service_networking_connection" "private_vpc_connection" {
+    network                 = var.vpc_id
+    service                 = "servicenetworking.googleapis.com"
+    reserved_peering_ranges = [google_compute_global_address.private_ip_address.name]
+}
+
 resource "google_sql_database_instance" "mysql" {
-  name             = var.sqldb_name
-  region           = var.region
-  database_version = var.database_version 
-  project          = var.project_id 
-  root_password    = var.root_password 
+    name             = var.sqldb_name
+    region           = var.region
+    database_version = var.database_version 
+    project          = var.project_id 
+    root_password    = var.root_password 
+
+    depends_on = [google_service_networking_connection.private_vpc_connection]
 
     settings {
         tier                = var.sql_tier
