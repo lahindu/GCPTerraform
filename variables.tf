@@ -5,7 +5,7 @@ variable "region" {
 
 variable "vpc_name" {
   description = ""
-  default     = "vpc-eks-dev-1"
+  default     = "vpc-gke-dev-1"
 }
 
 variable "subnet_name" {
