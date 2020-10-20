@@ -25,6 +25,7 @@ module "gke" {
     project_id                  = "et-dte-platform-core"
     gke_cluster_name            = "dte-gks"
     region                      = var.region
+    zones                       = [ "us-east1-b" ]
     vpc_name                    = var.vpc_name
     subnetwork                  = "vpc-gke-1-web"
     ip_range_pods               = "${var.vpc_name}-${var.region}-pods"
@@ -34,9 +35,9 @@ module "gke" {
     node_pool1_name              = "dte-gke-dtesvc-pool"
     node_pool2_name              = "dte-gke-dtetools-pool"
     machine_type                = "n2-standard-2"
-    initial_node_count          = 1
-    min_count                   = 1
-    max_count                   = 2
+    initial_node_count          = 3
+    min_count                   = 3
+    max_count                   = 6
     local_ssd_count             = 0
     disk_size_gb                = 50
     disk_type                   = "pd-standard"

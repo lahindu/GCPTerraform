@@ -43,6 +43,11 @@ variable "regional" {
     default     = ""
 }
 
+variable "zones" {
+    description = "zones"
+    default     = ""
+}
+
 variable "node_pool1_name" {
     description = "node_pool_name"
     default     = ""
