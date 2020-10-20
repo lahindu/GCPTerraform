@@ -42,7 +42,7 @@ module "gke" {
     disk_size_gb                = 50
     disk_type                   = "pd-standard"
     image_type                  = "COS"
-    preemptible                 = true
+    preemptible                 = false
 }
 
 module "gcr" {
