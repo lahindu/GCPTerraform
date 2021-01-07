@@ -49,7 +49,7 @@ module "gcr" {
     source                      = "./modules/gcr"
     project_id                  = "et-dte-platform-core"
     cr_location                 = "us"
-    cr_member                   = "lahindu.weerarathna@axiatadigitallabs.com"
+    cr_member                   = "lahindu.weerarathna@gmil.com"
 }
 
 module "gsql" {
